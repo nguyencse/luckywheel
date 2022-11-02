@@ -1,6 +1,5 @@
 Easier to create your Lucky Wheel!
 
-
 ## Getting Started  
   
 To use this plugin, add `luckywheel` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/). 
@@ -132,5 +131,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 ```
+<img src="https://github.com/nguyencse/luckywheel/raw/master/screenshots/1.png" align = "left" width="300">
+<img src="https://github.com/nguyencse/luckywheel/raw/master/screenshots/2.png" align = "left" width="300">
 
-Enjoy the Lucky Wheel.
+### Enjoy the Lucky Wheel.
