@@ -35,7 +35,7 @@ class LuckyWheelController {
 
   /// [_selectedIndex] this is the selected index that we want to stopped at.
   int _selectedIndex = 0;
-  
+
   /// [_selectedAngle] this is the selected angle of its index (count from 0) in radian mode.
   double _selectedAngle = 0.0;
 
@@ -60,10 +60,12 @@ class LuckyWheelController {
     _angleEachPart = 2 * pi / totalParts;
     _speed = stopDuration / rotateDuration;
 
-    _rotateCtrl = AnimationController(vsync: vsync, duration: Duration(milliseconds: rotateDuration));
+    _rotateCtrl = AnimationController(
+        vsync: vsync, duration: Duration(milliseconds: rotateDuration));
     _rotateAnim = Tween(begin: 0.0, end: 1.0).animate(_rotateCtrl);
 
-    _stopCtrl = AnimationController(vsync: vsync, duration: Duration(milliseconds: stopDuration));
+    _stopCtrl = AnimationController(
+        vsync: vsync, duration: Duration(milliseconds: stopDuration));
     _stopAnim = Tween(begin: 0.0, end: 0.5).animate(_stopCtrl);
 
     _rotateCtrl.addStatusListener((status) {

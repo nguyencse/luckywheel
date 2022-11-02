@@ -63,7 +63,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   animation: _result,
                   builder: (context, child) => Text(
                     '${_result.value}',
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 40),
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -74,7 +77,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       onResult: (result) {
                         _result.value = result;
                       },
-                      child: const SpinningWidget(width: 300, height: 300, totalParts: 8),
+                      child: const SpinningWidget(
+                          width: 300, height: 300, totalParts: 8),
                       // child: Image.asset('images/wheel.png', width: 300, height: 300),
                     ),
                     Container(
@@ -86,7 +90,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           _wheelController.reset();
                           _wheelController.start();
                         },
-                        child: Image.asset('assets/images/btn_rotate.png', width: 64, height: 64),
+                        child: Image.asset('assets/images/btn_rotate.png',
+                            width: 64, height: 64),
                       ),
                     ),
                   ],
@@ -98,7 +103,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     _wheelController.start();
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
@@ -120,7 +126,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     // _wheelController.stop(atIndex: 5);
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),

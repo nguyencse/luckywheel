@@ -29,7 +29,8 @@ class _SpinningWidgetState extends State<SpinningWidget> {
   @override
   void initState() {
     super.initState();
-    _totalParts = widget.totalParts > 0 ? widget.totalParts : 1; // to avoid zero division
+    _totalParts =
+        widget.totalParts > 0 ? widget.totalParts : 1; // to avoid zero division
     _angleEachPart = 2 * pi / _totalParts;
     _initAngle = widget.initAngle ?? (_angleEachPart / 2);
   }
@@ -53,7 +54,9 @@ class _SpinningWidgetState extends State<SpinningWidget> {
             return CustomPaint(
               size: const Size(300, 300),
               painter: PiceOfCakePainter(
-                bgColor: idx == 0 ? Colors.red : (idx % 2 == 0 ? Colors.yellow : Colors.green),
+                bgColor: idx == 0
+                    ? Colors.red
+                    : (idx % 2 == 0 ? Colors.yellow : Colors.green),
                 startAngle: _angleEachPart * idx - pi / 2 - _initAngle,
                 sweepAngle: _angleEachPart,
               ),
