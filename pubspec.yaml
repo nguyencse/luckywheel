@@ -1,10 +1,10 @@
 name: luckywheel
 description: This is a package to help your create your lucky wheel (spinning widget) easily and effectively
-version: 0.0.2
+version: 1.0.0
 homepage: https://github.com/nguyencse/luckywheel
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
