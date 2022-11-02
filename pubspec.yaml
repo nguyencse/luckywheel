@@ -1,6 +1,6 @@
 name: luckywheel
 description: This is a package to help your create your lucky wheel (spinning widget) easily and effectively
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/nguyencse/luckywheel
 
 environment:
