@@ -52,8 +52,8 @@ class LuckyWheelController {
 
   LuckyWheelController({
     required this.vsync,
+    required this.totalParts,
     this.onRotationEnd,
-    this.totalParts = 1,
     this.rotateDuration = kRotateDuration,
     this.stopDuration = kStopDuration,
   }) {
