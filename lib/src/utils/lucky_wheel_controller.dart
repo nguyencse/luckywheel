@@ -1,46 +1,69 @@
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:luckywheel/src/utils/wheel_debug.dart';
 
 class LuckyWheelController {
   static const int kDefaultTotalPart = 8;
+  static const int kRotateDuration = 2000;
+  static const int kStopDuration = 8000;
 
   final TickerProvider vsync;
 
+  /// [rotateDuration] duration of 1 cycle rotation.
+  late final int rotateDuration;
+
+  /// [stopDuration] duration of stopping rotation.
+  late final int stopDuration;
+
+  /// [_rotateCtrl] is the controller to handle infinity rotation.
   late final AnimationController _rotateCtrl;
   late final Animation<double> _rotateAnim;
 
+  /// [_stopCtrl] is the controller to handle infinity rotation.
   late final AnimationController _stopCtrl;
   late final Animation<double> _stopAnim;
 
+  /// [onRotationEnd] callback after rotation ended. It will invoke with an index of the selected part.
   final Function(int)? onRotationEnd;
+
+  /// [totalParts] total parts of the wheels
   final int totalParts;
+
+  /// [_accelerate] this is the friction we use while stopping the wheel.
+  double _accelerate = 0.0;
+
+  /// [_selectedIndex] this is the selected index that we want to stopped at.
+  int _selectedIndex = 0;
+  
+  /// [_selectedAngle] this is the selected angle of its index (count from 0) in radian mode.
+  double _selectedAngle = 0.0;
+
+  /// [_angleEachPart] angle each part of the wheel.
+  double _angleEachPart = 0.0;
+
+  /// [_speed] speed of rotation
+  double _speed = 1;
 
   bool _isFirstStop = false;
   bool _isStopPressed = false;
-  double _accelerate = 0.0;
-  double _selectedAngle = 0.0;
-  int _selectedIndex = 0;
-  int _totalParts = 0;
-  double _angleEachPart = 0.0;
-
-  static const int _rotateDuration = 2000;
-  static const int _stopDuration = 8000;
-  double _speed = _stopDuration / _rotateDuration;
 
   Animation<double> get rotateAnim => _rotateAnim;
 
-  var data = [];
+  LuckyWheelController({
+    required this.vsync,
+    this.onRotationEnd,
+    this.totalParts = 0,
+    this.rotateDuration = kRotateDuration,
+    this.stopDuration = kStopDuration,
+  }) {
+    _angleEachPart = 2 * pi / totalParts;
+    _speed = stopDuration / rotateDuration;
 
-  LuckyWheelController({required this.vsync, this.onRotationEnd, this.totalParts = 0}) {
-    _totalParts = 8;
-    _angleEachPart = 2 * pi / _totalParts;
-
-    _rotateCtrl = AnimationController(vsync: vsync, duration: const Duration(milliseconds: _rotateDuration));
+    _rotateCtrl = AnimationController(vsync: vsync, duration: Duration(milliseconds: rotateDuration));
     _rotateAnim = Tween(begin: 0.0, end: 1.0).animate(_rotateCtrl);
 
-    _stopCtrl = AnimationController(vsync: vsync, duration: const Duration(milliseconds: _stopDuration));
+    _stopCtrl = AnimationController(vsync: vsync, duration: Duration(milliseconds: stopDuration));
     _stopAnim = Tween(begin: 0.0, end: 0.5).animate(_stopCtrl);
 
     _rotateCtrl.addStatusListener((status) {
@@ -51,7 +74,7 @@ class LuckyWheelController {
         } else {
           if (_isFirstStop && _stopCtrl.value == 0.0) {
             _rotateCtrl.duration = _stopCtrl.duration;
-            _speed = _speed * _stopDuration / _rotateDuration;
+            _speed = _speed * stopDuration / rotateDuration;
             _stopCtrl.forward();
             _isFirstStop = false;
           }
@@ -90,8 +113,8 @@ class LuckyWheelController {
     _isStopPressed = false;
     _selectedIndex = 0;
     _selectedAngle = 0.0;
-    _speed = _stopDuration / _rotateDuration;
-    _rotateCtrl.duration = const Duration(milliseconds: _rotateDuration);
+    _speed = stopDuration / rotateDuration;
+    _rotateCtrl.duration = Duration(milliseconds: rotateDuration);
   }
 
   void start() {
@@ -122,12 +145,6 @@ class LuckyWheelController {
         _selectedAngle -
         (1 - _stopCtrl.value) * (1 - _stopCtrl.value) * _selectedAngle;
   }
-}
 
-class WheelDebug {
-  static void log(String? message) {
-    if (kDebugMode) {
-      print('LuckyWheel ==> $message');
-    }
-  }
+  bool get isAnimating => _rotateCtrl.isAnimating || _stopCtrl.isAnimating;
 }

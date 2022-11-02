@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:luckywheel/src/utils/lucky_wheel_controller.dart';
+import 'package:luckywheel/src/utils/wheel_debug.dart';
 
 class LuckyWheel extends StatelessWidget {
   const LuckyWheel({
